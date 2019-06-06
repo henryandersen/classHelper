@@ -1,3 +1,4 @@
+var ejs    = require('ejs')
 var express    = require('express')      // call express
 var bodyParser = require('body-parser')
 var app  = express()     // define our app using express
