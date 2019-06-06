@@ -1,0 +1,72 @@
+<!doctype html>
+<html>
+<head>
+    <title>Class helper</title>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+    <style>
+        body        { padding-top:80px; word-wrap:break-word; }
+    </style>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="clientScript.js"></script>
+</head>
+<body>
+<div class="container">
+
+    <div class="page-header text-center">
+        <h1><span class="fa fa-anchor"></span> Teacher Profile</h1>
+
+    </div>
+
+    <div class="row">
+
+        <!-- LOCAL INFORMATION -->
+              <div class="col-sm-6">
+                  <div class="well">
+                      <p><span class="fa fa-user"></span>
+                        <strong>Logged in:</strong> <%= user.local.email %></p>
+                        <a href="/logout" class="btn btn-default btn-sm">Logout</a>
+                  </div>
+              </div>
+              <div class="col">
+                Sort By:
+              </div>
+              <div class="col">
+                <select class="btn btn-mini" id="sortSelect">
+                    <option value="0">Time</option>
+                    <option value="1">Urgency</option>
+                </select>
+              </div>
+    </div>
+
+</div>
+
+<ul class="needs">
+    <table class = "table table-striped">
+      <caption>List of Requests</caption>
+      <tr>
+        <th>Need</th>
+        <th>Comment</th>
+        <th>Urgency</th>
+        <th>Student</th>
+
+      </tr>
+  <% for(var i=0; i<needs.length; i++) {%>
+  <tr>
+    <td><%= needs[i].need%></td>
+    <td><%= needs[i].comments%></td>
+    <td><%= needs[i].urgency %></td>
+    <td><%= needs[i].email%></td>
+    <td>
+        <form method="post" action ="/tDelete1">
+        <input type= "hidden" name="buttonId" value= "<%=needs[i]._id%>">
+        <button type= "submit" class="btn btn-danger" value ="finished">Resolve</button>
+        </form>
+    </td>
+  </tr>
+  <% }%>
+</ul>
+
+</body>
+</html>

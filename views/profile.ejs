@@ -1,0 +1,206 @@
+<!doctype html>
+<html>
+<head>
+    <title>Class Helper</title>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+    <script src="clientScript.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <style>
+
+        #probText {text-align: right; position: relative; top:20px; left:20px; }
+        #peepee {width: 750px; }
+        #need {width: 150px}
+        #thing {padding-left: 90px;}
+        #left {float: left;}
+        #right {position:relative; float: left; padding-left: 30px;}
+        .clear {
+    background-color: Transparent;
+    background-repeat:no-repeat;
+    border: none;
+    cursor:pointer;
+    overflow: hidden;
+    outline:none;
+    text-decoration: underline;
+    text-decoration-color: blue;
+    color: blue
+}
+    </style>
+</head>
+<body>
+
+<div class="container page-header">
+<div id="left">
+<div class= "well">
+  <p><span class="fa fa-user"></span>
+    <strong>Logged in:</strong> <%= user.local.email %></p>
+    <a href="/logout" class="btn btn-default btn-sm">Logout</a>
+</div>
+</div>
+
+<div id="right">
+  <div>
+      <h1><span class="fa fa-anchor"></span> Student Profile</h1>
+
+  </div>
+</div>
+</div>
+
+
+<p>
+  <p>
+
+
+        <!-- LOCAL INFORMATION -->
+
+<div id= "thing">
+<div id="faq"><h5>FAQ</h5></div>
+<ul id="list">
+  <li><button class="clear" id = "1">Mouse/Keyboard issue</button></li>
+  <li><button class="clear" id = "2">My computer is stuck logged into another class account</button></li>
+  <li><button class="clear" id = "3">I can’t find a file/project on my computer</button></li>
+</ul>
+</div>
+
+<div class="container">
+          <div class="well">
+
+        <form action="/question" method="POST">
+        <input type="hidden" name="email" value= "<%= user.local.email %>">
+
+        <div class="container">
+
+        <div class="row">
+          <div class="col-xs-6">
+            <h4>Submit a Request</h4>
+          </div>
+          <div class="col-xs-6">
+          <h6>*Select a Problem and Urgency to submit </h6>
+        </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-6">
+
+              <div style="display: flex;" class="input-group" id="peepee">
+
+                <div>
+                    <select onchange="getval(this);" class="form-control" id = "need" name = "need">
+                      <option value="0">Select Problem</option>
+                     <option value="I want to talk about my grade in class">I want to talk about my grade in class
+                  </option>
+                     <option value="I want Mr. Rowland’s opinion on something">I want Mr. Rowland’s opinion on something
+                  </option>
+                     <option value="I want a check-in with Mr. Rowland (review of what I should be doing)">I want a check-in with Mr. Rowland (review of what I should be doing)
+                  </option>
+                  <option value="Other">Other (Explain in comments)
+                    </option>
+                    <option value="I can’t find a file/project on my computer">I can’t find a file/project on my computer
+                 </option>
+                 <option value="My computer is stuck logged into another class account">My computer is stuck logged into another class account
+              </option>
+              <option value="Mouse/keyboard issue">Mouse/keyboard issue
+           </option>
+                   </select>
+                 </div>
+                 <div>
+                  <input class="form-control" type="text" placeholder="Comments" name="comments">
+                </div>
+                <div>
+            <select onchange="getval2(this);" class="form-control" id="urgency" name="urgency">
+                 <option value="0">Urgency</option>
+                 <option value="Low">Low</option>
+                 <option value="Medium">Medium</option>
+                 <option value="High">High</option>
+               </select>
+             </div>
+             <div>
+              <button class="btn btn-primary" id="submitButton" type="submit">Submit</button>
+             </div>
+
+              </div>
+
+          </div>
+          </div>
+
+        </div>
+        </form>
+        </div>
+
+
+
+</div>
+</div>
+<p>
+<p>
+  <p>
+  <p>
+<ul class="needs">
+  <div class="form-row">
+    <div class="col">
+  <h1 class="display-4">Request Queue</h1>
+    <table class = "table table-striped">
+      <caption>All Requests</caption>
+      <tr>
+        <th>Need</th>
+        <th>Comment</th>
+        <th>Urgency</th>
+        <th>Answer</th>
+        <th>Student</th>
+      </tr>
+  <% for(var i=0; i<needs.length; i++) {%>
+  <tr>
+    <td><%= needs[i].need%></td>
+    <td><%= needs[i].comments%></td>
+    <td><%= needs[i].urgency %></td>
+    <td>
+        <button type="button" class="btn btn-default btn-lg answerButton" value= "<%=needs[i].need%>">
+          <span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span>
+        </button>
+    </td>
+    <td><%= needs[i].email%></td>
+  </tr>
+  <% }%>
+</table>
+</div>
+<div class="col">
+<h1 class="display-4">My Requests</h1>
+  <table class = "table table-striped ">
+      <caption>My Requests</caption>
+      <tr>
+        <th>Need</th>
+        <th>Comment</th>
+        <th>Urgency</th>
+        <th>Delete</th>
+
+      </tr>
+      <% for(var j=0; j<needs.length; j++) {%>
+        <% if(needs[j].email == user.local.email){%>
+      <tr>
+        <td><%= needs[j].need%></td>
+        <td><%= needs[j].comments%></td>
+        <td><%= needs[j].urgency %></td>
+
+        <td>
+            <form method="post" action ="/delete">
+            <input type= "hidden" name="buttonId" value= "<%=needs[j]._id%>">
+            <button type= "submit" class="btn btn-danger" value ="finished">Delete</button>
+            </form>
+        </td>
+      </tr>
+      <% }}%>
+
+  </table>
+</div>
+</div>
+</ul>
+
+
+</body>
+</html>
